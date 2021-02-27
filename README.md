@@ -5,7 +5,7 @@ A new Flutter application.
 ## Getting Started
 
 I use 
-  firebase_core:
+ ## firebase_core:
   firebase_auth:
   google_sign_in:
   cloud_firestore:
