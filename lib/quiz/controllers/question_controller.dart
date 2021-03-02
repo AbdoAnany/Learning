@@ -7,7 +7,6 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 
-
 // We use get package for our state management
 
 class QuestionController extends GetxController
@@ -17,20 +16,20 @@ class QuestionController extends GetxController
   AnimationController _animationController;
   Animation _animation;
 
-  static var exam=[];
+  static var exam = [];
   // so that we can access our animation outside
   Animation get animation => this._animation;
 
   PageController _pageController;
   PageController get pageController => this._pageController;
-  List<Question> _questions =sample_data
+  List<Question> _questions = sample_data
       .map(
         (question) => Question(
             question: question['question'],
             options: question['options'],
-            answer: question['answer_index']
-          ),
-      ).toList();
+            answer: question['answer_index']),
+      )
+      .toList();
 
   List<Question> get questions => this._questions;
 
@@ -77,12 +76,13 @@ class QuestionController extends GetxController
     _animationController.dispose();
     _pageController.dispose();
   }
+
   void checkAns(Question question, int selectedIndex) {
     // because once user press any option then it will run
     _isAnswered = true;
     _correctAns = question.answer;
     _selectedAns = selectedIndex;
-print(_selectedAns);
+    print(_selectedAns);
     if (_correctAns == _selectedAns) _numOfCorrectAns++;
 
     // It will stop the counter
@@ -94,6 +94,7 @@ print(_selectedAns);
       nextQuestion();
     });
   }
+
   void nextQuestion() {
     if (_questionNumber.value != _questions.length) {
       _isAnswered = false;

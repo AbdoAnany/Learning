@@ -18,8 +18,7 @@ class SocalCard extends StatelessWidget {
     return GestureDetector(
       onTap: press,
       child: Container(
-        margin:
-            EdgeInsets.symmetric(horizontal: getScreenWidth(10)),
+        margin: EdgeInsets.symmetric(horizontal: getScreenWidth(10)),
         padding: EdgeInsets.all(getScreenWidth(12)),
         height: getScreenHeight(40),
         width: getScreenWidth(40),

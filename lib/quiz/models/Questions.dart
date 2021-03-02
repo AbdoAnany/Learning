@@ -9,9 +9,9 @@ class Question {
   Question({this.id, this.question, this.answer, this.options});
 }
 
-AuthProvider authProvider=AuthProvider();
- List sample_data= [] ;
-const List sample_data1= [
+AuthProvider authProvider = AuthProvider();
+List sample_data = [];
+const List sample_data1 = [
   {
     "id": 1,
     "question":

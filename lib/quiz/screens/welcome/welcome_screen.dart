@@ -9,7 +9,7 @@ class WelcomeScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-      //    WebsafeSvg.asset("assets/icons/bg.svg", fit: BoxFit.fill),
+          //    WebsafeSvg.asset("assets/icons/bg.svg", fit: BoxFit.fill),
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),

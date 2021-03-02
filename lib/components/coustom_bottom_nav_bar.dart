@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../constants.dart';
+
 enum MenuState { home, favourite, message, profile }
 
 class CustomBottomNavBar extends StatelessWidget {
@@ -45,8 +46,7 @@ class CustomBottomNavBar extends StatelessWidget {
                       ? kPrimaryColor
                       : inActiveIconColor,
                 ),
-                onPressed: () =>
-                   Get.to(DesignCourseHomeScreen()),
+                onPressed: () => Get.to(DesignCourseHomeScreen()),
               ),
               IconButton(
                 icon: SvgPicture.asset("assets/icons/Heart Icon.svg"),
@@ -63,8 +63,7 @@ class CustomBottomNavBar extends StatelessWidget {
                       ? kPrimaryColor
                       : inActiveIconColor,
                 ),
-                onPressed: () =>
-                    Get.to(DesignCourseHomeScreen()),
+                onPressed: () => Get.to(DesignCourseHomeScreen()),
               ),
             ],
           )),

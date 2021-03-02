@@ -1,23 +1,19 @@
-
 import 'package:cms/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 
-
 class AppTheme {
   AppTheme._();
   AppTheme();
 
-
-
- // static const Color bg = Color(0xFFFFFFFE);
+  // static const Color bg = Color(0xFFFFFFFE);
   static const Color bg = Color(0xFF01090f);
 
   static const Color bgt = Color(0xFFFFFFFE);
- // static const Color bgt2 = Color(0xff0a1e2d);
+  // static const Color bgt2 = Color(0xff0a1e2d);
   static const Color bu = Color(0xfffcbb3b);
- // static const Color bu2 = Color(0xFFffc900);
+  // static const Color bu2 = Color(0xFFffc900);
 
   static String timenow = DateFormat.yMMMd().format(DateTime.now());
 
@@ -31,10 +27,6 @@ class AppTheme {
     width: 150.0,
     height: 150.0,
   );
-
-
-
-
 
   //
   static const Color transparent = Colors.transparent;
@@ -128,7 +120,6 @@ class AppTheme {
   static const keyboardTypeemail = TextInputType.emailAddress;
   static const keyboardTypedate = TextInputType.datetime;
   static const keyboardTypepass = TextInputType.visiblePassword;
-
 
   ThemeData theme() {
     return ThemeData(
@@ -241,56 +232,56 @@ class AppTheme {
     color: Colors.white,
   );
 
-  static Widget logoname(String text, double h,datauser) {
-    return
-    datauser.profile_image == null
+  static Widget logoname(String text, double h, datauser) {
+    return datauser.profile_image == null
         ? Container(
-      alignment: Alignment.center, height: h, width: h,
-
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-            begin:Alignment.topLeft ,end: Alignment.bottomRight,
-
-            colors: [ Colors.amber[500],bu]
-        ),
-        borderRadius: BorderRadius.all(Radius.circular(100)),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
+            alignment: Alignment.center,
+            height: h,
+            width: h,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Colors.amber[500], bu]),
+              borderRadius: BorderRadius.all(Radius.circular(100)),
+              boxShadow: <BoxShadow>[
+                BoxShadow(
 //                        color: AppTheme.grey.withOpacity(0.6),
 //                       offset: Offset(20.0, 4.0),spreadRadius: 10,
-              blurRadius: 1),
-        ],
-        border: Border.all(width: h / 20, color: Colors.white),
-      ),
-      child: Text(
-        text,textAlign: TextAlign.center,
-        style: TextStyle(
-
-          color: Colors.black,
-          fontSize: h/1.3,
-        ),
-      ),
-    )
+                    blurRadius: 1),
+              ],
+              border: Border.all(width: h / 20, color: Colors.white),
+            ),
+            child: Text(
+              text,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: h / 1.3,
+              ),
+            ),
+          )
         : Container(
-      decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          image: DecorationImage(
-              image: NetworkImage("https://api.hicit-learning.me/"+datauser.profile_image),fit: BoxFit.cover)),
-    )
-    ;
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                    image: NetworkImage("https://api.hicit-learning.me/" +
+                        datauser.profile_image),
+                    fit: BoxFit.cover)),
+          );
   }
+
   static Widget inputfild(
       String hint, BuildContext context, keyboardType, Icons, contr, visable) {
     return Container(
       margin: EdgeInsets.all(10),
-      width: MediaQuery.of(context).size.width *.8,
+      width: MediaQuery.of(context).size.width * .8,
       height: 50,
       decoration: BoxDecoration(
-        color: AppTheme.transparent,
-        borderRadius: BorderRadius.all(Radius.circular(5)),
-          border: Border.all(width: 3,color: AppTheme.grey)
-      ),
-      child:  TextFormField(
+          color: AppTheme.transparent,
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+          border: Border.all(width: 3, color: AppTheme.grey)),
+      child: TextFormField(
         controller: contr,
         style: TextStyle(
           color: Colors.white,
@@ -300,13 +291,12 @@ class AppTheme {
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
           hintStyle: TextStyle(
-              color: AppTheme.grey, fontSize: 20,),
-
+            color: AppTheme.grey,
+            fontSize: 20,
+          ),
           hintText: hint,
         ),
       ),
-
-
     );
   }
 
@@ -340,12 +330,12 @@ class AppTheme {
     );
   }
 
-
   static Widget info20(String text) {
     return Text(
       text,
       style: inf20,
-      maxLines: 50,textScaleFactor: 1.0,
+      maxLines: 50,
+      textScaleFactor: 1.0,
     );
   }
 
@@ -363,17 +353,14 @@ class AppTheme {
     );
   }
 
-
-
-  static Widget post1(String name, String Date, String text, String comment,datauser) {
-
+  static Widget post1(
+      String name, String Date, String text, String comment, datauser) {
     return Container(
       decoration: BoxDecoration(
         color: AppTheme.bg,
-
-          boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 1)],
+        boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 1)],
       ),
-      padding: EdgeInsets.all( 10),
+      padding: EdgeInsets.all(10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -381,7 +368,7 @@ class AppTheme {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              logoname(name[0] + name[1], 50.0,datauser),
+              logoname(name[0] + name[1], 50.0, datauser),
               SizedBox(
                 width: 10,
               ),
@@ -391,12 +378,8 @@ class AppTheme {
                 children: <Widget>[
                   AppTheme.info20(name),
                   AppTheme.info15(Date),
-
                 ],
               ),
-
-
-
             ],
           ),
           Container(
@@ -446,10 +429,6 @@ class AppTheme {
 
 }
 
-
-
-
-
 final background = Container(
   decoration: BoxDecoration(
     color: Color(0xff343b45),
@@ -466,12 +445,10 @@ final post = Container(
           image: AssetImage('assets/bgg.png'), fit: BoxFit.cover)),
 );
 final post22 = Container(
- // height: MediaQuery.of(context).size.height / 3,
- // width: MediaQuery.of(context).size.width,
+  // height: MediaQuery.of(context).size.height / 3,
+  // width: MediaQuery.of(context).size.width,
   decoration: BoxDecoration(
       color: Color(0xff343b45),
       image: DecorationImage(
           image: AssetImage('assets/bgg.png'), fit: BoxFit.cover)),
 );
-
-

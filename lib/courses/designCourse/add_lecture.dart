@@ -20,11 +20,11 @@ class AddLecture extends StatefulWidget {
 
 class AddLectureState extends State<AddLecture> {
   String flag = 'Error';
-  String _simpleValue='Math';
+  String _simpleValue = 'Math';
 
   var KeyLogin = GlobalKey<ScaffoldState>();
   FirebaseAuth instance = FirebaseAuth.instance;
-  Map<String,dynamic> lecture = {};
+  Map<String, dynamic> lecture = {};
   TextEditingController question;
   TextEditingController option1;
   @override
@@ -34,10 +34,7 @@ class AddLectureState extends State<AddLecture> {
 
     question = new TextEditingController();
     option1 = new TextEditingController();
-
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -56,13 +53,8 @@ class AddLectureState extends State<AddLecture> {
                 height: 10,
               ),
               menu(),
-              AppTheme.inputfild(
-                  "Title",
-                  context,
-                  AppTheme.keyboardTypetext,
-                  AppTheme.IconIanswer,
-                  option1,
-                  true),
+              AppTheme.inputfild("Title", context, AppTheme.keyboardTypetext,
+                  AppTheme.IconIanswer, option1, true),
               SizedBox(
                 height: 10,
               ),
@@ -72,9 +64,8 @@ class AddLectureState extends State<AddLecture> {
                 decoration: BoxDecoration(
                     color: AppTheme.transparent,
                     borderRadius: BorderRadius.all(Radius.circular(5)),
-                    border: Border.all(width: 3,color: AppTheme.grey)
-                ),
-                child:   TextFormField(
+                    border: Border.all(width: 3, color: AppTheme.grey)),
+                child: TextFormField(
                   controller: question,
                   style: TextStyle(
                     color: AppTheme.white,
@@ -83,42 +74,41 @@ class AddLectureState extends State<AddLecture> {
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     hintText: 'Subject',
-                    hintStyle: TextStyle(color: AppTheme.grey, fontSize: 30,),
-
+                    hintStyle: TextStyle(
+                      color: AppTheme.grey,
+                      fontSize: 30,
+                    ),
                   ),
                   maxLines: 1000,
                 ),
               ),
-
               Container(
                 width: MediaQuery.of(context).size.width * .4,
-                height: 40,margin:EdgeInsets.all(20),
+                height: 40,
+                margin: EdgeInsets.all(20),
                 decoration: BoxDecoration(
                     color: AppTheme.bu,
                     borderRadius: BorderRadius.all(Radius.circular(15)),
-                    boxShadow: [
-                      BoxShadow(color: Colors.white, blurRadius: 1)
-                    ]),
+                    boxShadow: [BoxShadow(color: Colors.white, blurRadius: 1)]),
                 child: FlatButton(
                   child: Text("Send Lecture ", style: AppTheme.inputStyle),
                   onPressed: () async {
-                    lecture={'category':_simpleValue,
-                    'title':option1.text,
-                      'subject':question.text,
-                     'date' :DateTime.now().format('D, M j, H:i')
+                    lecture = {
+                      'category': _simpleValue,
+                      'title': option1.text,
+                      'subject': question.text,
+                      'date': DateTime.now().format('D, M j, H:i')
                     };
-                    try{
-                      if(question.text.isEmpty||option1.text.isEmpty)
-                      {
-                        KeyLogin.currentState
-                            .showSnackBar(SnackBar(content: Text('Enter Title and Subject')));
+                    try {
+                      if (question.text.isEmpty || option1.text.isEmpty) {
+                        KeyLogin.currentState.showSnackBar(
+                            SnackBar(content: Text('Enter Title and Subject')));
                       }
-                      if(question.text.isNotEmpty&&option1.text.isNotEmpty)
-                      {
-                        pro.addLecture(pro.user.uid,lecture);
-                      Get.off(DesignCourseHomeScreen());
+                      if (question.text.isNotEmpty && option1.text.isNotEmpty) {
+                        pro.addLecture(pro.user.uid, lecture);
+                        Get.off(DesignCourseHomeScreen());
                       }
-                    }catch(e){
+                    } catch (e) {
                       KeyLogin.currentState
                           .showSnackBar(SnackBar(content: Text('fail')));
                     }
@@ -134,24 +124,28 @@ class AddLectureState extends State<AddLecture> {
       ),
     );
   }
+
   void showAndSetMenuSelection(BuildContext context, String value) {
     setState(() {
       _simpleValue = value;
     });
   }
-  Widget menu(){
+
+  Widget menu() {
     return PopupMenuButton<String>(
       padding: EdgeInsets.zero,
       initialValue: _simpleValue,
-      onSelected: (value) => showAndSetMenuSelection(context,value),
+      onSelected: (value) => showAndSetMenuSelection(context, value),
       child: ListTile(
           title: Text(
-            "Select Category",style: TextStyle(color: AppTheme.white,fontSize: 25),),
-          subtitle: Text( _simpleValue,style: TextStyle(color: AppTheme.white,fontSize: 20))
-      ),
+            "Select Category",
+            style: TextStyle(color: AppTheme.white, fontSize: 25),
+          ),
+          subtitle: Text(_simpleValue,
+              style: TextStyle(color: AppTheme.white, fontSize: 20))),
       itemBuilder: (context) => <PopupMenuItem<String>>[
         PopupMenuItem<String>(
-          value:"Math" ,
+          value: "Math",
           child: Text('Math'),
         ),
         PopupMenuItem<String>(
@@ -163,14 +157,10 @@ class AddLectureState extends State<AddLecture> {
           child: Text('Arabic'),
         ),
         PopupMenuItem<String>(
-          value: "English" ,
+          value: "English",
           child: Text('English'),
         ),
       ],
     );
   }
-
-
 }
-
-

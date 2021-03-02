@@ -11,7 +11,7 @@ class ScoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     QuestionController _qnController = Get.put(QuestionController());
-    var pro=Provider.of<AuthProvider>(context);
+    var pro = Provider.of<AuthProvider>(context);
 
     return Scaffold(
       body: Stack(
@@ -40,7 +40,8 @@ class ScoreScreen extends StatelessWidget {
               DefaultButton(
                 text: "Done",
                 press: () {
-                  pro.getExams(examID,"${_qnController.numOfCorrectAns * 10}/${_qnController.questions.length * 10}");
+                  pro.getExams(examID,
+                      "${_qnController.numOfCorrectAns * 10}/${_qnController.questions.length * 10}");
                   Get.off(DesignCourseHomeScreen());
                 },
               ),

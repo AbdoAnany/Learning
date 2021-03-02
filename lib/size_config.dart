@@ -29,7 +29,6 @@ double getScreenWidth(double inputWidth) {
   return (inputWidth / 375.0) * screenWidth;
 }
 
-
 class KeyboardUtil {
   static void hideKeyboard(BuildContext context) {
     FocusScopeNode currentFocus = FocusScope.of(context);

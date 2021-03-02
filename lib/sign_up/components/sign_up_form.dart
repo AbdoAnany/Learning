@@ -9,8 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-
-
 class SignUpForm extends StatefulWidget {
   @override
   _SignUpFormState createState() => _SignUpFormState();
@@ -33,6 +31,7 @@ class _SignUpFormState extends State<SignUpForm> {
         errors.add(error);
       });
   }
+
   void removeError({String error}) {
     if (errors.contains(error))
       setState(() {
@@ -42,7 +41,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   @override
   Widget build(BuildContext context) {
-    var pro=Provider.of<AuthProvider>(context);
+    var pro = Provider.of<AuthProvider>(context);
 
     return Form(
       key: _formKey,
@@ -61,16 +60,15 @@ class _SignUpFormState extends State<SignUpForm> {
           SizedBox(height: getScreenHeight(30)),
           DefaultButton(
             text: "Continue",
-            press: ()async {
-              var flag='';
+            press: () async {
+              var flag = '';
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
-                flag=await pro.register(user, phone,email, password,school,grade);
-                if(flag=='success')
-                {
+                flag = await pro.register(
+                    user, phone, email, password, school, grade);
+                if (flag == 'success') {
                   Get.to(SignInScreen());
                 }
-
               }
             },
           ),
@@ -98,16 +96,18 @@ class _SignUpFormState extends State<SignUpForm> {
       },
       decoration: InputDecoration(
         labelText: "User Name",
-        hintText: "Enter your User Name", border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20),
-        borderSide: BorderSide(color: kTextColor),
-        gapPadding: 5,
-      ),
+        hintText: "Enter your User Name",
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20),
+          borderSide: BorderSide(color: kTextColor),
+          gapPadding: 5,
+        ),
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: Icon(Icons.person),
       ),
     );
   }
+
   TextFormField buildEmailFormField() {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
@@ -127,11 +127,12 @@ class _SignUpFormState extends State<SignUpForm> {
       },
       decoration: InputDecoration(
         labelText: "Email",
-        hintText: "Enter your email", border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20),
-        borderSide: BorderSide(color: kTextColor),
-        gapPadding: 5,
-      ),
+        hintText: "Enter your email",
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20),
+          borderSide: BorderSide(color: kTextColor),
+          gapPadding: 5,
+        ),
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -139,6 +140,7 @@ class _SignUpFormState extends State<SignUpForm> {
       ),
     );
   }
+
   TextFormField buildPasswordFormField() {
     return TextFormField(
       obscureText: true,
@@ -163,11 +165,12 @@ class _SignUpFormState extends State<SignUpForm> {
       },
       decoration: InputDecoration(
         labelText: "Password",
-        hintText: "Enter your password", border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20),
-        borderSide: BorderSide(color: kTextColor),
-        gapPadding: 5,
-      ),
+        hintText: "Enter your password",
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20),
+          borderSide: BorderSide(color: kTextColor),
+          gapPadding: 5,
+        ),
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -175,6 +178,7 @@ class _SignUpFormState extends State<SignUpForm> {
       ),
     );
   }
+
   TextFormField buildPhoneFormField() {
     return TextFormField(
       keyboardType: TextInputType.text,
@@ -194,16 +198,18 @@ class _SignUpFormState extends State<SignUpForm> {
       },
       decoration: InputDecoration(
         labelText: "Phone",
-        hintText: "Enter your  Phone", border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20),
-        borderSide: BorderSide(color: kTextColor),
-        gapPadding: 5,
-      ),
+        hintText: "Enter your  Phone",
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20),
+          borderSide: BorderSide(color: kTextColor),
+          gapPadding: 5,
+        ),
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: Icon(Icons.phone),
       ),
     );
   }
+
   TextFormField buildSchoolFormField() {
     return TextFormField(
       keyboardType: TextInputType.text,
@@ -223,16 +229,15 @@ class _SignUpFormState extends State<SignUpForm> {
       },
       decoration: InputDecoration(
         labelText: "School",
-        hintText: "Enter your  School", border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20),
-        borderSide: BorderSide(color: kTextColor),
-        gapPadding: 5,
-      ),
+        hintText: "Enter your  School",
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20),
+          borderSide: BorderSide(color: kTextColor),
+          gapPadding: 5,
+        ),
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: Icon(Icons.school),
       ),
     );
   }
-
-
 }

@@ -24,16 +24,18 @@ class _RoleIDPageState extends State<RoleIDPage> {
   Widget build(BuildContext context) {
     var pro = Provider.of<AuthProvider>(context);
     return Scaffold(
-
         backgroundColor: AppTheme.white,
-        body: SingleChildScrollView(child: Column(
+        body: SingleChildScrollView(
+            child: Column(
           children: <Widget>[
-SizedBox(height: getScreenHeight(50),),
+            SizedBox(
+              height: getScreenHeight(50),
+            ),
             Container(
               width: MediaQuery.of(context).size.width,
               height: getScreenHeight(300),
               decoration: BoxDecoration(
-                //    borderRadius: BorderRadius.only(bottomLeft:  Radius.circular(75),bottomRight:  Radius.circular(75)),
+                  //    borderRadius: BorderRadius.only(bottomLeft:  Radius.circular(75),bottomRight:  Radius.circular(75)),
                   color: AppTheme.white),
               child: Image.asset(
                 'assets/hei.png',
@@ -43,7 +45,6 @@ SizedBox(height: getScreenHeight(50),),
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 color: AppTheme.white,
-
               ),
               child: Text(
                 "Choose Category",
@@ -66,7 +67,6 @@ SizedBox(height: getScreenHeight(50),),
                 children: <Widget>[
                   Container(
                       width: getScreenWidth(150),
-
                       child: Column(
                         children: <Widget>[
                           FlatButton(
@@ -93,7 +93,6 @@ SizedBox(height: getScreenHeight(50),),
                       )),
                   Container(
                       width: getScreenWidth(200),
-
                       child: Column(
                         children: <Widget>[
                           FlatButton(
@@ -122,7 +121,6 @@ SizedBox(height: getScreenHeight(50),),
               ),
             ),
           ],
-        ))
-       );
+        )));
   }
 }

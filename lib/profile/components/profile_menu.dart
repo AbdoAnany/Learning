@@ -2,7 +2,6 @@ import 'package:cms/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-
 class ProfileMenu extends StatelessWidget {
   const ProfileMenu({
     Key key,

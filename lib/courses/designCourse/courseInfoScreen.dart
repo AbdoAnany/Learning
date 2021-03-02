@@ -1,5 +1,7 @@
 import 'package:cms/appTheme.dart';
+import 'package:cms/courses/designCourse/models/category.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CourseInfoScreen extends StatefulWidget {
   @override
@@ -11,6 +13,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
   final infoHeight = 364.0;
   AnimationController animationController;
   Animation<double> animation;
+  bool flag=false;
   var opacity1 = 0.0;
   var opacity2 = 0.0;
   var opacity3 = 0.0;
@@ -47,7 +50,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
         (MediaQuery.of(context).size.width / 1.2) +
         24.0);
     return Container(
-      color: AppTheme.nearlyWhite,
+      color: AppTheme.white,
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Stack(
@@ -56,7 +59,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
               children: <Widget>[
                 AspectRatio(
                   aspectRatio: 1.2,
-                  child: Image.asset('assets/design_course/webInterFace.png'),
+                  child: Image.asset(Lecture.lectures.imagePath,   fit: BoxFit.cover,),
                 ),
               ],
             ),
@@ -67,7 +70,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
               right: 0,
               child: Container(
                 decoration: BoxDecoration(
-                  color: AppTheme.nearlyWhite,
+                  color: AppTheme.dark_grey ,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(32.0),
                       topRight: Radius.circular(32.0)),
@@ -94,86 +97,32 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                             padding: const EdgeInsets.only(
                                 top: 32.0, left: 18, right: 16),
                             child: Text(
-                              "Web Design\nCourse",
+                              Lecture.lectures.title.toUpperCase(),
                               textAlign: TextAlign.left,
                               style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25,
                                 letterSpacing: 0.27,
-                                color: AppTheme.darkerText,
+                                color: AppTheme.white,
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 16, right: 16, bottom: 8, top: 16),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Text(
-                                  "\$28.99",
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w200,
-                                    fontSize: 22,
-                                    letterSpacing: 0.27,
-                                    color: AppTheme.bu,
-                                  ),
-                                ),
-                                Container(
-                                  child: Row(
-                                    children: <Widget>[
-                                      Text(
-                                        "4.3",
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w200,
-                                          fontSize: 22,
-                                          letterSpacing: 0.27,
-                                          color: AppTheme.grey,
-                                        ),
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: AppTheme.bu,
-                                        size: 24,
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          AnimatedOpacity(
-                            duration: Duration(milliseconds: 500),
-                            opacity: opacity1,
-                            child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Row(
-                                children: <Widget>[
-                                  getTimeBoxUI("24", "Classe"),
-                                  getTimeBoxUI("2hours", "Time"),
-                                  getTimeBoxUI("24", "Seat"),
-                                ],
-                              ),
-                            ),
-                          ),
+
                           Expanded(
                             child: AnimatedOpacity(
                               duration: Duration(milliseconds: 500),
                               opacity: opacity2,
                               child: Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 16, right: 16, top: 8, bottom: 8),
+                                    left: 16, right: 16, top: 20, bottom: 8),
                                 child: Text(
-                                  "Lorem ipsum is simply dummy text of printing & typesetting industry, Lorem ipsum is simply dummy text of printing & typesetting industry.",
+                                  Lecture.lectures.subject,
                                   textAlign: TextAlign.justify,
                                   style: TextStyle(
-                                    fontWeight: FontWeight.w200,
-                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 20,
                                     letterSpacing: 0.27,
-                                    color: AppTheme.grey,
+                                    color: AppTheme.white,
                                   ),
                                   maxLines: 3,
                                   overflow: TextOverflow.ellipsis,
@@ -187,72 +136,43 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                             child: Padding(
                               padding: const EdgeInsets.only(
                                   left: 16, bottom: 16, right: 16),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    width: 48,
-                                    height: 48,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: AppTheme.nearlyWhite,
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(16.0),
-                                        ),
-                                        border: new Border.all(
-                                            color: AppTheme.grey
-                                                .withOpacity(0.2)),
-                                      ),
-                                      child: Icon(
-                                        Icons.add,
-                                        color: AppTheme.bu,
-                                        size: 28,
+                              child:    Expanded(
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 48,
+                                  decoration: BoxDecoration(
+                                    color: AppTheme.bu,
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(16.0),
+                                    ),
+                                    boxShadow: <BoxShadow>[
+                                      BoxShadow(
+                                          color:
+                                          AppTheme.bu.withOpacity(0.5),
+                                          offset: Offset(1.1, 1.1),
+                                          blurRadius: 10.0),
+                                    ],
+                                  ),
+                                  child: FlatButton(
+                                    onPressed: ()=>Navigator.pop(context),
+                                    child: Text(
+                                      "Done",
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                        letterSpacing: 0.0,
+                                        color: AppTheme.white,
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: 16,
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      height: 48,
-                                      decoration: BoxDecoration(
-                                        color: AppTheme.bu,
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(16.0),
-                                        ),
-                                        boxShadow: <BoxShadow>[
-                                          BoxShadow(
-                                              color: AppTheme
-                                                  .bu
-                                                  .withOpacity(0.5),
-                                              offset: Offset(1.1, 1.1),
-                                              blurRadius: 10.0),
-                                        ],
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          "Join Course",
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 18,
-                                            letterSpacing: 0.0,
-                                            color: AppTheme
-                                                .nearlyWhite,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
+                                ),
                               ),
                             ),
                           ),
                           SizedBox(
-              height: MediaQuery.of(context).padding.bottom,
-            )
+                            height: MediaQuery.of(context).padding.bottom,
+                          )
                         ],
                       ),
                     ),
@@ -276,10 +196,13 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                     width: 60,
                     height: 60,
                     child: Center(
-                      child: Icon(
-                        Icons.favorite,
-                        color: AppTheme.nearlyWhite,
-                        size: 30,
+                      child: IconButton(
+                       icon: Icon(Icons.favorite,size: 25,color:flag?AppTheme.red: AppTheme.white,) ,
+                        color: AppTheme.white,onPressed: (){
+                     setState(() {
+                          flag=!flag;
+                     });
+                        },
                       ),
                     ),
                   ),
@@ -298,7 +221,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                         AppBar().preferredSize.height),
                     child: Icon(
                       Icons.arrow_back_ios,
-                      color: AppTheme.nearlyBlack,
+                      color: AppTheme.bu,
                     ),
                     onTap: () {
                       Navigator.pop(context);
@@ -312,52 +235,5 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
       ),
     );
   }
-
-  Widget getTimeBoxUI(String text1, String txt2) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: AppTheme.nearlyWhite,
-          borderRadius: BorderRadius.all(Radius.circular(16.0)),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-                color: AppTheme.grey.withOpacity(0.2),
-                offset: Offset(1.1, 1.1),
-                blurRadius: 8.0),
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.only(
-              left: 18.0, right: 18.0, top: 12.0, bottom: 12.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                text1,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 14,
-                  letterSpacing: 0.27,
-                  color: AppTheme.bu,
-                ),
-              ),
-              Text(
-                txt2,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.w200,
-                  fontSize: 14,
-                  letterSpacing: 0.27,
-                  color: AppTheme.grey,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  
 }

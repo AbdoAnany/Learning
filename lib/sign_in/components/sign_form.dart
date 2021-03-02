@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 
 import '../../constants.dart';
 
-
 class SignForm extends StatefulWidget {
   @override
   _SignFormState createState() => _SignFormState();
@@ -40,7 +39,7 @@ class _SignFormState extends State<SignForm> {
 
   @override
   Widget build(BuildContext context) {
-    var pro=Provider.of<AuthProvider>(context);
+    var pro = Provider.of<AuthProvider>(context);
     return Form(
       key: _formKey,
       child: Column(
@@ -63,7 +62,7 @@ class _SignFormState extends State<SignForm> {
               Text("Remember me"),
               Spacer(),
               GestureDetector(
-                onTap: () =>   Get.to(DesignCourseHomeScreen()),
+                onTap: () => Get.to(DesignCourseHomeScreen()),
                 child: Text(
                   "Forgot Password",
                   style: TextStyle(decoration: TextDecoration.underline),
@@ -73,26 +72,24 @@ class _SignFormState extends State<SignForm> {
           ),
           FormError(errors: errors),
           SizedBox(height: getScreenHeight(20)),
-   pro.authStates==AuthStates.Authenticating?CircularProgressIndicator():
-          DefaultButton(
-            text: "Continue",
-            press: ()async {
+          pro.authStates == AuthStates.Authenticating
+              ? CircularProgressIndicator()
+              : DefaultButton(
+                  text: "Continue",
+                  press: () async {
+                    var flag = '';
+                    if (_formKey.currentState.validate()) {
+                      _formKey.currentState.save();
+                      flag = await pro.login(email, password);
 
-              var flag='';
-              if (_formKey.currentState.validate()) {
-               _formKey.currentState.save();
-               flag=await pro.login(email, password);
-
-               if(flag=='success'){
-                 Get.to(DesignCourseHomeScreen());
-               }
-               else{
-                 KeyboardUtil.hideKeyboard(context);
-               }
-              }
-
-            },
-          ),
+                      if (flag == 'success') {
+                        Get.to(DesignCourseHomeScreen());
+                      } else {
+                        KeyboardUtil.hideKeyboard(context);
+                      }
+                    }
+                  },
+                ),
         ],
       ),
     );
@@ -124,10 +121,10 @@ class _SignFormState extends State<SignForm> {
         labelText: "Password",
         hintText: "Enter your password",
         border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20),
-        borderSide: BorderSide(color: kTextColor),
-        gapPadding: 5,
-      ),
+          borderRadius: BorderRadius.circular(20),
+          borderSide: BorderSide(color: kTextColor),
+          gapPadding: 5,
+        ),
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -160,11 +157,12 @@ class _SignFormState extends State<SignForm> {
       },
       decoration: InputDecoration(
         labelText: "Email",
-        hintText: "Enter your email",border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20),
-        borderSide: BorderSide(color: kTextColor),
-        gapPadding: 5,
-      ),
+        hintText: "Enter your email",
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20),
+          borderSide: BorderSide(color: kTextColor),
+          gapPadding: 5,
+        ),
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,

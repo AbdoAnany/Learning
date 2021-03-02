@@ -12,7 +12,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 enum AuthStates { unAuthentication, Authenticating, Authenticated }
 String examID;
-String imageProfile='https://icons-for-free.com/iconfiles/png/512/badge+business+circle+human+id+male+man+people+person+profile-1320184105268408486.png';
+String imageProfile =
+    'https://icons-for-free.com/iconfiles/png/512/badge+business+circle+human+id+male+man+people+person+profile-1320184105268408486.png';
 
 class AuthProvider with ChangeNotifier {
   AuthProvider() {
@@ -29,7 +30,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
-  final FirebaseMessaging _fbm=FirebaseMessaging();
+  final FirebaseMessaging _fbm = FirebaseMessaging();
   AuthStates _authStates = AuthStates.unAuthentication;
   FirebaseAuth _instance;
   User _user;
@@ -37,16 +38,16 @@ class AuthProvider with ChangeNotifier {
   User get user => _user;
   AuthStates get authStates => _authStates;
 
-  void checkSignIn(int f)async{
+  void checkSignIn(int f) async {
     await notifications();
     FirebaseAuth.instance.authStateChanges().listen((User user) {
-      if(user==null){
-        if(f==2){
+      if (user == null) {
+        if (f == 2) {
           Get.to(SignInScreen());
-        }else if(f==1){
+        } else if (f == 1) {
           Get.to(SignInScreen());
         }
-      }else{
+      } else {
         Get.to(DesignCourseHomeScreen());
       }
     });
@@ -54,22 +55,21 @@ class AuthProvider with ChangeNotifier {
 
   //---------------Notifications with Firebase---------------------------
 
-Future notifications()async{
-  if(Platform.isIOS)
-    _fbm.requestNotificationPermissions(IosNotificationSettings())  ;
+  Future notifications() async {
+    if (Platform.isIOS)
+      _fbm.requestNotificationPermissions(IosNotificationSettings());
 
-  _fbm.configure(
-      onMessage: (Map<String,dynamic>message)async{
-        print("onMessage ==>$message");
-      },   onLaunch:  (Map<String,dynamic>message)async{
-    print("onLaunch ==>$message");
-  },   onResume: (Map<String,dynamic>message)async{
-    print("onResume ==>$message");
+    _fbm.configure(onMessage: (Map<String, dynamic> message) async {
+      print("onMessage ==>$message");
+    }, onLaunch: (Map<String, dynamic> message) async {
+      print("onLaunch ==>$message");
+    }, onResume: (Map<String, dynamic> message) async {
+      print("onResume ==>$message");
+    });
+    _fbm.requestNotificationPermissions(
+        const IosNotificationSettings(alert: true, sound: true, badge: true));
+    notifyListeners();
   }
-  );
-  _fbm.requestNotificationPermissions(const IosNotificationSettings(alert: true,sound: true ,badge: true));
-  notifyListeners();
-}
 
   //---------------Login With Email and Password---------------------------
   Future<String> login(String email, String password) async {
@@ -122,7 +122,7 @@ Future notifications()async{
   void googleSignIn() async {
     try {
       final GoogleSignInAccount signInAccount = await _googleSignIn.signIn();
-      imageProfile=signInAccount.photoUrl;
+      imageProfile = signInAccount.photoUrl;
       notifyListeners();
       GoogleSignInAuthentication signInAuthentication =
           await signInAccount.authentication;
@@ -131,7 +131,6 @@ Future notifications()async{
           accessToken: signInAuthentication.accessToken);
       await _instance.signInWithCredential(credential);
       notifyListeners();
-
     } catch (error) {
       print('error');
       print(error);
@@ -141,17 +140,17 @@ Future notifications()async{
 
   //---------------logOut with google account or email---------------------------
   logOut() async {
-
-if( await _googleSignIn.isSignedIn())
-    {  await _googleSignIn.signOut();
-    _authStates = AuthStates.unAuthentication;
-    notifyListeners();return;
+    if (await _googleSignIn.isSignedIn()) {
+      await _googleSignIn.signOut();
+      _authStates = AuthStates.unAuthentication;
+      notifyListeners();
+      return;
     }
     await _instance.signOut();
     _authStates = AuthStates.unAuthentication;
     notifyListeners();
 
-      Get.off(SignInScreen());
+    Get.off(SignInScreen());
     return;
   }
 
@@ -185,14 +184,14 @@ if( await _googleSignIn.isSignedIn())
       return e.message;
     }
   }
-  Future<String> deleteExam(String userId,String docrId) async {
 
+  Future<String> deleteExam(String userId, String docId) async {
     try {
       await FirebaseFirestore.instance
           .collection('exam')
           .doc(userId)
           .collection('mcq')
-          .doc(docrId)
+          .doc(docId)
           .delete();
       notifyListeners();
       return 'success';
@@ -201,6 +200,7 @@ if( await _googleSignIn.isSignedIn())
       return e.message;
     }
   }
+
   Future<String> addLecture(String userId, lecture) async {
     if (lecture == null || lecture == {}) {
       return null;
@@ -219,14 +219,14 @@ if( await _googleSignIn.isSignedIn())
       return e.message;
     }
   }
-  Future<String> deleteLecture(String userId,String docrId) async {
 
+  Future<String> deleteLecture(String userId, String docId) async {
     try {
       await FirebaseFirestore.instance
           .collection('Lectures')
           .doc(userId)
           .collection('Lecture')
-          .doc(docrId)
+          .doc(docId)
           .delete();
       notifyListeners();
       return 'success';
@@ -235,6 +235,7 @@ if( await _googleSignIn.isSignedIn())
       return e.message;
     }
   }
+
   //---------------get Exam from Firebase---------------------------
   getExams(examId, exam) async {
     var dateTime = DateTime.now();

@@ -7,10 +7,9 @@ import 'profile_menu.dart';
 import 'profile_pic.dart';
 
 class Body extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-    var pro=Provider.of<AuthProvider>(context);
+    var pro = Provider.of<AuthProvider>(context);
     return SingleChildScrollView(
       padding: EdgeInsets.symmetric(vertical: 20),
       child: Column(
@@ -38,11 +37,11 @@ class Body extends StatelessWidget {
             press: () {},
           ),
           ProfileMenu(
-            text: "Log Out",
-            icon: "assets/icons/Log out.svg",
-            press: () {
-    pro.logOut();}
-          ),
+              text: "Log Out",
+              icon: "assets/icons/Log out.svg",
+              press: () {
+                pro.logOut();
+              }),
         ],
       ),
     );

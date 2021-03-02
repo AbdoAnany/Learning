@@ -18,12 +18,12 @@ class AddExam extends StatefulWidget {
 
 class AddExamState extends State<AddExam> {
   String flag = 'Error';
-  String _simpleValue='Math';
+  String _simpleValue = 'Math';
 
   var KeyLogin = GlobalKey<ScaffoldState>();
   FirebaseAuth instance = FirebaseAuth.instance;
   int radioValue = 0;
-  int count=0;
+  int count = 0;
   List exam = [];
   TextEditingController question;
   TextEditingController option1;
@@ -67,7 +67,13 @@ class AddExamState extends State<AddExam> {
           alignment: Alignment.center,
           child: ListView(
             children: <Widget>[
-              Text('Number of Question : ${count}',style: TextStyle(color: AppTheme.white, fontSize: 30,),),
+              Text(
+                'Number of Question : ${count}',
+                style: TextStyle(
+                  color: AppTheme.white,
+                  fontSize: 30,
+                ),
+              ),
               SizedBox(
                 height: 20,
               ),
@@ -76,9 +82,8 @@ class AddExamState extends State<AddExam> {
                 decoration: BoxDecoration(
                     color: AppTheme.transparent,
                     borderRadius: BorderRadius.all(Radius.circular(5)),
-                    border: Border.all(width: 3,color: AppTheme.grey)
-                ),
-                child:   TextFormField(
+                    border: Border.all(width: 3, color: AppTheme.grey)),
+                child: TextFormField(
                   controller: question,
                   style: TextStyle(
                     color: AppTheme.white,
@@ -86,10 +91,11 @@ class AddExamState extends State<AddExam> {
                   ),
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
-
                     hintText: 'Question',
-                    hintStyle: TextStyle(color: AppTheme.grey, fontSize: 30,),
-
+                    hintStyle: TextStyle(
+                      color: AppTheme.grey,
+                      fontSize: 30,
+                    ),
                   ),
                   maxLines: 5,
                 ),
@@ -97,20 +103,20 @@ class AddExamState extends State<AddExam> {
               Row(
                 children: [
                   Container(
-                    width: 35,height: 35,
+                    width: 35,
+                    height: 35,
                     decoration: BoxDecoration(
                         color: AppTheme.bg,
                         borderRadius: BorderRadius.all(Radius.circular(50)),
-                        border: Border.all(width: 2,color: AppTheme.white)
-                    ),
-                    child:      Radio<int>(
+                        border: Border.all(width: 2, color: AppTheme.white)),
+                    child: Radio<int>(
                       value: 0,
                       groupValue: radioValue,
                       onChanged: handleRadioValueChanged,
                       activeColor: Colors.green,
                       autofocus: true,
-                    ),),
-
+                    ),
+                  ),
                   AppTheme.inputfild(
                       "option1",
                       context,
@@ -123,19 +129,20 @@ class AddExamState extends State<AddExam> {
               Row(
                 children: [
                   Container(
-                    width: 35,height: 35,
+                    width: 35,
+                    height: 35,
                     decoration: BoxDecoration(
                         color: AppTheme.bg,
                         borderRadius: BorderRadius.all(Radius.circular(50)),
-                        border: Border.all(width: 2,color: AppTheme.white)
-                    ),
-                    child:      Radio<int>(
+                        border: Border.all(width: 2, color: AppTheme.white)),
+                    child: Radio<int>(
                       value: 1,
                       groupValue: radioValue,
                       onChanged: handleRadioValueChanged,
                       activeColor: Colors.green,
                       autofocus: true,
-                    ),),
+                    ),
+                  ),
                   AppTheme.inputfild(
                       "option2",
                       context,
@@ -148,19 +155,20 @@ class AddExamState extends State<AddExam> {
               Row(
                 children: [
                   Container(
-                    width: 35,height: 35,
+                    width: 35,
+                    height: 35,
                     decoration: BoxDecoration(
                         color: AppTheme.bg,
                         borderRadius: BorderRadius.all(Radius.circular(50)),
-                        border: Border.all(width: 2,color: AppTheme.white)
-                    ),
-                    child:      Radio<int>(
+                        border: Border.all(width: 2, color: AppTheme.white)),
+                    child: Radio<int>(
                       value: 2,
                       groupValue: radioValue,
                       onChanged: handleRadioValueChanged,
                       activeColor: Colors.green,
                       autofocus: true,
-                    ),),
+                    ),
+                  ),
                   AppTheme.inputfild(
                       "option3",
                       context,
@@ -173,19 +181,20 @@ class AddExamState extends State<AddExam> {
               Row(
                 children: [
                   Container(
-                    width: 35,height: 35,
+                    width: 35,
+                    height: 35,
                     decoration: BoxDecoration(
                         color: AppTheme.bg,
                         borderRadius: BorderRadius.all(Radius.circular(50)),
-                        border: Border.all(width: 2,color: AppTheme.white)
-                    ),
-                    child:      Radio<int>(
+                        border: Border.all(width: 2, color: AppTheme.white)),
+                    child: Radio<int>(
                       value: 3,
                       groupValue: radioValue,
                       onChanged: handleRadioValueChanged,
                       activeColor: Colors.green,
                       autofocus: true,
-                    ),),
+                    ),
+                  ),
                   AppTheme.inputfild(
                       "option4",
                       context,
@@ -209,16 +218,19 @@ class AddExamState extends State<AddExam> {
                 decoration: BoxDecoration(
                     color: AppTheme.bu,
                     borderRadius: BorderRadius.all(Radius.circular(15)),
-                    boxShadow: [
-                      BoxShadow(color: Colors.white, blurRadius: 1)
-                    ]),
+                    boxShadow: [BoxShadow(color: Colors.white, blurRadius: 1)]),
                 child: FlatButton(
                   child: Text(" (${count})  Next Question >>",
                       style: TextStyle(fontSize: 20)),
                   onPressed: () async {
                     try {
-                      if(question.text.isEmpty||option1.text.isEmpty||option2.text.isEmpty||option3.text.isEmpty||option4.text.isEmpty){
-                        KeyLogin.currentState.showSnackBar(SnackBar(content: Text('Complete input')));
+                      if (question.text.isEmpty ||
+                          option1.text.isEmpty ||
+                          option2.text.isEmpty ||
+                          option3.text.isEmpty ||
+                          option4.text.isEmpty) {
+                        KeyLogin.currentState.showSnackBar(
+                            SnackBar(content: Text('Complete input')));
                         return;
                       }
                       exam.add({
@@ -238,13 +250,17 @@ class AddExamState extends State<AddExam> {
                       });
 
                       question.clear();
-                      option1.clear();option2.clear();
-                      option3.clear();option4.clear();
+                      option1.clear();
+                      option2.clear();
+                      option3.clear();
+                      option4.clear();
 
                       KeyLogin.currentState.showSnackBar(SnackBar(
-                        content: Text('success added Question'),));
+                        content: Text('success added Question'),
+                      ));
                     } catch (e) {
-                      KeyLogin.currentState.showSnackBar(SnackBar(content: Text('fail')));
+                      KeyLogin.currentState
+                          .showSnackBar(SnackBar(content: Text('fail')));
                     }
                   },
                 ),
@@ -255,26 +271,19 @@ class AddExamState extends State<AddExam> {
                 decoration: BoxDecoration(
                     color: AppTheme.bu,
                     borderRadius: BorderRadius.all(Radius.circular(15)),
-                    boxShadow: [
-                      BoxShadow(color: Colors.white, blurRadius: 1)
-                    ]),
+                    boxShadow: [BoxShadow(color: Colors.white, blurRadius: 1)]),
                 child: FlatButton(
                   child: Text("Send Exam ", style: AppTheme.inputStyle),
                   onPressed: () async {
-
-                    try{
-                      if(exam.isEmpty)
-                      {
-
+                    try {
+                      if (exam.isEmpty) {
                         Get.to(DesignCourseHomeScreen());
                       }
-                      if(exam.isNotEmpty)
-                      {   pro.addExam(pro.user.uid,exam);
-                      Get.off(DesignCourseHomeScreen());
-
+                      if (exam.isNotEmpty) {
+                        pro.addExam(pro.user.uid, exam);
+                        Get.off(DesignCourseHomeScreen());
                       }
-
-                    }catch(e){
+                    } catch (e) {
                       KeyLogin.currentState
                           .showSnackBar(SnackBar(content: Text('fail')));
                     }
@@ -290,24 +299,28 @@ class AddExamState extends State<AddExam> {
       ),
     );
   }
+
   void showAndSetMenuSelection(BuildContext context, String value) {
     setState(() {
       _simpleValue = value;
     });
   }
-  Widget menu(){
+
+  Widget menu() {
     return PopupMenuButton<String>(
       padding: EdgeInsets.zero,
       initialValue: _simpleValue,
-      onSelected: (value) => showAndSetMenuSelection(context,value),
+      onSelected: (value) => showAndSetMenuSelection(context, value),
       child: ListTile(
           title: Text(
-            "Select Category",style: TextStyle(color: AppTheme.white,fontSize: 25),),
-          subtitle: Text( _simpleValue,style: TextStyle(color: AppTheme.white,fontSize: 20))
-      ),
+            "Select Category",
+            style: TextStyle(color: AppTheme.white, fontSize: 25),
+          ),
+          subtitle: Text(_simpleValue,
+              style: TextStyle(color: AppTheme.white, fontSize: 20))),
       itemBuilder: (context) => <PopupMenuItem<String>>[
         PopupMenuItem<String>(
-          value:"Math" ,
+          value: "Math",
           child: Text('Math'),
         ),
         PopupMenuItem<String>(
@@ -319,14 +332,10 @@ class AddExamState extends State<AddExam> {
           child: Text('Arabic'),
         ),
         PopupMenuItem<String>(
-          value: "English" ,
+          value: "English",
           child: Text('English'),
         ),
       ],
     );
   }
-
-
 }
-
-

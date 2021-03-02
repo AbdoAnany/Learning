@@ -2,7 +2,6 @@ import 'package:cms/components/socal_card.dart';
 import 'package:cms/size_config.dart';
 import 'package:flutter/material.dart';
 
-
 import '../../constants.dart';
 import 'sign_up_form.dart';
 
@@ -13,8 +12,7 @@ class Body extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getScreenWidth(20)),
+          padding: EdgeInsets.symmetric(horizontal: getScreenWidth(20)),
           child: SingleChildScrollView(
             child: Column(
               children: [
