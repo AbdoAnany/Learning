@@ -173,30 +173,30 @@ class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
     return Container(
       alignment: Alignment.center,
       child: FutureBuilder<QuerySnapshot>(
-          initialData: null,
-          // <2> Pass `Future<QuerySnapshot>` to future
           future: FirebaseFirestore.instance
               .collection('exam')
               .doc(pro.user.uid)
               .collection('mcq')
               .get(),
           builder: (context, snapshot) {
-            List<QueryDocumentSnapshot> documents = [];
-            if (snapshot.data != null) documents = snapshot.data.docs;
-            return snapshot.hasData && !snapshot.hasError
-                ? GridView(
+            switch(snapshot.connectionState){
+              case ConnectionState.none:
+                return Center(child: Text("Nothing Here !!"),);
+                break;
+              case ConnectionState.waiting:
+                return CircularProgressIndicator();
+                break;
+              case ConnectionState.active:
+              case ConnectionState.done:
+            return GridView(
                     padding: EdgeInsets.all(8),
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      //   mainAxisSpacing: 32.0,
-                      //     crossAxisSpacing: 32.0,
                       childAspectRatio: 0.8,
                     ),
-                    children: documents
-                        .map(
-                          (doc) => FlatButton(
+                    children: snapshot.data.docs.map((doc) => FlatButton(
                               onPressed: () {
                                 if (doc['state'] == 'wait') {
                                   setState(() {
@@ -240,11 +240,12 @@ class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
                                             color: AppTheme.white,
                                             fontSize: 15),
                                       ),
-                              )),
-                        )
-                        .toList())
-                : CircularProgressIndicator();
-          }),
+                              )),).toList());}
+            return Center(child: Text("Nothing Here !!",style: TextStyle(fontSize: 20,color: AppTheme.black),),);
+
+          }
+
+    ),
     );
   }
   Widget getPopularCourseUI() {
@@ -252,61 +253,66 @@ class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
     return Container(
       alignment: Alignment.center,
       child: FutureBuilder<QuerySnapshot>(
-          initialData: null,
           future: FirebaseFirestore.instance
               .collection('Lectures')
               .doc(pro.user.uid)
               .collection('Lecture')
               .get(),
           builder: (context, snapshot) {
-            List<QueryDocumentSnapshot> documents = [];
-            if (snapshot.data != null) documents = snapshot.data.docs;
-            return snapshot.hasData && !snapshot.hasError
-                ? ListView(
-                padding: EdgeInsets.all(8),
-                physics: BouncingScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                children: documents
-                    .map((doc) => Stack(children: [
-                        FlatButton(
-                            onPressed: () {Get.to(CourseInfoScreen());},
-                            child: Container(alignment: Alignment.bottomLeft,
-                              margin: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                                height: getScreenHeight(MediaQuery.of(context).size.height * .25),
-                              width: getScreenWidth(MediaQuery.of(context).size.width * .9),
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: new ExactAssetImage(imge[doc['category']]),
-                                  fit: BoxFit.cover,
-                                 ),
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(20)),
-                                color:  AppTheme.bu,
+            switch(snapshot.connectionState){
+              case ConnectionState.none:
+                return Center(child: Text("Nothing Here !!",style: TextStyle(fontSize: 20,color: AppTheme.black),),);
+                break;
+              case ConnectionState.waiting:
+               return CircularProgressIndicator();
+                break;
+              case ConnectionState.active:
+              case ConnectionState.done:
+                return    ListView(
+
+                    padding: EdgeInsets.all(8),
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    children: snapshot.data.docs.map((doc) =>
+                        Stack(children: [
+                          FlatButton(
+                              onPressed: () {Get.to(CourseInfoScreen());},
+                              child: Container(alignment: Alignment.bottomLeft,
+                                  margin: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                                  height: getScreenHeight(MediaQuery.of(context).size.height * .27),
+                                  width: getScreenWidth(MediaQuery.of(context).size.width * .9),
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: new ExactAssetImage(imge[doc['category']]),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                                    color:  AppTheme.bu,
                                   ),
-                              child:Container(
-                                height: getScreenHeight(MediaQuery.of(context).size.height * .08),
-                                padding: EdgeInsets.only(bottom: 10,left: 10,top: 10),
-                                width: MediaQuery.of(context).size.width,
-                                color: AppTheme.white.withOpacity(.7),
-                                child: Text('${doc['title'].toString().capitalizeFirst}  ',
-                                textAlign: TextAlign.left,
-                                style: TextStyle(fontWeight: FontWeight.bold,
-                                    color: AppTheme.black,letterSpacing: 2,
-                                    fontSize: 25),
-                              ),)
+                                  child:Container(
+                                    height: getScreenHeight(MediaQuery.of(context).size.height * .08),
+                                    padding: EdgeInsets.only(bottom: 10,left: 10,top: 10),
+                                    width: MediaQuery.of(context).size.width,
+                                    color: AppTheme.white.withOpacity(.7),
+                                    child: Text('${doc['title'].toString().capitalizeFirst}  ',
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(fontWeight: FontWeight.bold,
+                                          color: AppTheme.black,letterSpacing: 2,
+                                          fontSize: 15),
+                                    ),)
+                              )),
+                          Positioned(left: 250,top: 20,
+                            child: FlatButton(onPressed: (){
+                              pro.deleteLecture(pro.user.uid,doc.id);
+                            },
+                              child: Icon(Icons.clear,size: 25,color: AppTheme.red,),
+                            ),),
+                        ],),).toList());
+                break;
+            }
+            return Center(child: Text("Nothing Here !!",style: TextStyle(fontSize: 20,color: AppTheme.black),),);
 
-
-                            )),
-                        Positioned(left: 250,top: 20,
-                          child: FlatButton(onPressed: (){
-                            pro.deleteExam(pro.user.uid,doc.id);
-                          },
-                            child: Icon(Icons.clear,size: 25,color: AppTheme.red,),
-                          ),),
-                      ],),
-                )
-                    .toList())
-                : CircularProgressIndicator();
           }),
     );
   }

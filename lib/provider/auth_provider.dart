@@ -219,7 +219,22 @@ if( await _googleSignIn.isSignedIn())
       return e.message;
     }
   }
+  Future<String> deleteLecture(String userId,String docrId) async {
 
+    try {
+      await FirebaseFirestore.instance
+          .collection('Lectures')
+          .doc(userId)
+          .collection('Lecture')
+          .doc(docrId)
+          .delete();
+      notifyListeners();
+      return 'success';
+    } on FirebaseAuthException catch (e) {
+      notifyListeners();
+      return e.message;
+    }
+  }
   //---------------get Exam from Firebase---------------------------
   getExams(examId, exam) async {
     var dateTime = DateTime.now();

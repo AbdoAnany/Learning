@@ -107,13 +107,13 @@ class AddLectureState extends State<AddLecture> {
                       'subject':question.text,
                      'date' :DateTime.now().format('D, M j, H:i')
                     };
-                    print(lecture);
                     try{
-                      if(lecture.isEmpty)
+                      if(question.text.isEmpty||option1.text.isEmpty)
                       {
-                        Get.to(DesignCourseHomeScreen());
+                        KeyLogin.currentState
+                            .showSnackBar(SnackBar(content: Text('Enter Title and Subject')));
                       }
-                      if(lecture.isNotEmpty)
+                      if(question.text.isNotEmpty&&option1.text.isNotEmpty)
                       {
                         pro.addLecture(pro.user.uid,lecture);
                       Get.off(DesignCourseHomeScreen());
